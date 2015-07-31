@@ -18,7 +18,7 @@ gulp.task('serve', ['sass'], function() {
     });
 
     gulp.watch("_/sass/*.scss", ['sass']);
-    gulp.watch("_/js/*.js", ['script']);
+    gulp.watch("_/js/*.js", ['scripts']);
     gulp.watch("*.html").on('change', browserSync.reload);
 });
 
@@ -26,7 +26,13 @@ gulp.task('serve', ['sass'], function() {
 gulp.task('sass', function() {
     return gulp.src("_/sass/*.scss")
         .pipe(sass())
+        .pipe(plumber())
+        .pipe(prefix('last 2 versions'))
+        .pipe(concat('style.css'))
         .pipe(gulp.dest("_/css"))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(uglify())
+        .pipe(gulp.dest('_/components/css'))
         .pipe(browserSync.stream());
 });
 
@@ -39,9 +45,9 @@ gulp.task('scripts', function() {
     '_/js/myscript.js'
     ])
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('_/components/js'))
-    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest('_/js'))
     .pipe(uglify())
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('_/components/js'))
     .pipe(browserSync.stream());
 });
