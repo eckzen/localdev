@@ -1,13 +1,13 @@
 var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-ruby-sass');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var notify = require('gulp-notify');
-var minifycss = require('gulp-minify-css');
-var concat = require('gulp-concat');
-var plumber = require('gulp-plumber');
-var prefix = require('gulp-autoprefixer');
+var uglify      = require('gulp-uglify');
+var rename      = require('gulp-rename');
+var notify      = require('gulp-notify');
+var minifycss   = require('gulp-minify-css');
+var concat      = require('gulp-concat');
+var plumber     = require('gulp-plumber');
+var prefix      = require('gulp-autoprefixer');
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
@@ -36,8 +36,6 @@ gulp.task('sass-style', function () {
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('_/components/css'))
         .pipe(browserSync.stream());
-        // .pipe(gulp.dest('_/css'))
-        // .pipe(browserSync.stream());
 });
 
 gulp.task('sass-bootstrap', function () {
@@ -53,23 +51,9 @@ gulp.task('sass-bootstrap', function () {
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('_/components/css'))
         .pipe(browserSync.stream());
-        // .pipe(gulp.dest('_/css'))
-        // .pipe(browserSync.stream());
-});
+    });
 
 gulp.task('sass', ['sass-style', 'sass-bootstrap']);
-// gulp.task('sass', function() {
-//     return gulp.src("_/sass/*.scss")
-//         .pipe(sass())
-//         .pipe(plumber())
-//         .pipe(prefix('last 2 versions'))
-//         .pipe(concat('style.css'))
-//         .pipe(gulp.dest("_/css"))
-//         .pipe(uglify())
-//         .pipe(rename({suffix: '.min'}))
-//         .pipe(gulp.dest('_/components/css'))
-//         .pipe(browserSync.stream());
-// });
 
 /* Scripts task */
 gulp.task('scripts', function() {
